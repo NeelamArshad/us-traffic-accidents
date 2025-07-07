@@ -1,0 +1,31 @@
+---
+title: "US Traffic Accidents Analysis"
+author: "Neelam Arshad"
+execute: 
+  echo: false
+---
+
+
+```{r}
+#| message: false
+#| results: hide
+library(readr)     
+library(ggplot2)    
+library(lubridate)  
+
+accidents <- read_csv("data/US_Accidents.csv", n_max = 500000)
+```
+
+
+```{r}
+# Extract hour from Start_Time
+accidents$Hour <- hour(accidents$Start_Time)
+
+# Plot accidents by hour
+ggplot(accidents, aes(x = Hour)) +
+  geom_bar(fill = "#2C77B9", color = "white") +
+  labs(title = "Number of Accidents by Hour of Day",
+       x = "Hour of Day",
+       y = "Number of Accidents") +
+  theme_minimal(base_size = 14)
+```
