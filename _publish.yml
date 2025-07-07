@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: c36d2953-918a-41c1-9233-61d1ea370fcd
+      url: https://neelamarshad.quarto.pub/us-traffic-accidents-analysis
