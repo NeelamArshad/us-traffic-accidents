@@ -5,8 +5,7 @@ execute:
   echo: false
 ---
 
-## Summary
-The bar plot illustrates the distribution of traffic accidents by hour of the day based on a sample of 500,000 records from the US Accidents dataset. The number of accidents begins to rise sharply from around 5 AM, peaking between 7 AM and 9 AM, which aligns with typical morning rush hour traffic. After a slight midday decline, accident frequency remains relatively high throughout the afternoon and reaches a secondary peak in the late afternoon to early evening hours, reflecting evening commute patterns. Accident counts then gradually decrease during the night. This pattern highlights the strong influence of daily human activity and traffic density on accident occurrence.
+
 ```{r}
 #| message: false
 #| results: hide
@@ -30,3 +29,7 @@ ggplot(accidents, aes(x = Hour)) +
        y = "Number of Accidents") +
   theme_minimal(base_size = 14)
 ```
+
+## Summary
+Traffic accidents in the United States show distinct patterns based on the time of day. Using data from the US Accidents dataset, which includes detailed records of traffic incidents from 2016 to 2023, I analyzed 500,000 accident reports to explore temporal trends in accident frequency. The number of accidents rises sharply starting at 5 AM, peaks during the morning commute between 7 and 9 AM, and shows another increase in the late afternoon, reflecting typical workday travel patterns. This analysis reveals that daily human activity and traffic density play a significant role in when accidents are most likely to occur.
+
