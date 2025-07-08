@@ -4,20 +4,20 @@
     "href": "sources.html",
     "title": "Sources",
     "section": "",
-    "text": "The data for this project comes from the US Accidents (2016 - 2023) dataset available on Kaggle. This dataset includes detailed information on over 7 million traffic accidents across the United States, covering variables such as location, time, weather conditions, and accident severity.\nTo prepare the data for analysis, I selected a manageable subset of the full dataset to avoid memory issues and improve performance. Basic data cleaning was performed, including handling missing values, parsing dates and times, and selecting relevant variables for visualization and analysis. No major filtering or removal of observations was done beyond these standard preprocessing steps."
+    "text": "The data for this project comes from the US Accidents(2016 - 2023) dataset available on Kaggle. This dataset includes detailed information on over 7 million traffic accidents across the United States, covering variables such as location, time, weather conditions, and accident severity.\nTo prepare the data for analysis, I selected a manageable subset of the full dataset to avoid memory issues and improve performance. Basic data cleaning was performed, including handling missing values, parsing dates and times, and selecting relevant variables for visualization and analysis. No major filtering or removal of observations was done beyond these standard preprocessing steps."
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "I am a data science enthusiast with a strong interest in data visualization and real-world applications of AI. You can find more of my work on Github (https://github.com/NeelamArshad) or reach me at aneelam888@gmail.com.\nThis project, which focuses on analyzing US traffic accidents to uncover patterns and insights using real-world data, is available on GitHub(https://github.com/NeelamArshad/us-traffic-accidents.git).\nThis project was created as a part of Kane’s Data Science Bootcamp."
+    "text": "I am a data science enthusiast with a strong interest in data visualization and real-world applications of AI. You can find more of my work on my Github Account or reach me at aneelam888@gmail.com.\nThis project, which focuses on analyzing US traffic accidents to uncover patterns and insights using real-world data, is available on GitHub.\nThis project was created as a part of Kane’s Data Science Bootcamp."
   },
   {
-    "objectID": "index.html#summary",
-    "href": "index.html#summary",
+    "objectID": "index.html",
+    "href": "index.html",
     "title": "US Traffic Accidents Analysis",
-    "section": "Summary",
-    "text": "Summary\nTraffic accidents in the United States show distinct patterns based on the time of day. Using data from the US Accidents dataset, which includes detailed records of traffic incidents from 2016 to 2023, I analyzed 500,000 accident reports to explore temporal trends in accident frequency. The number of accidents rises sharply starting at 5 AM, peaks during the morning commute between 7 and 9 AM, and shows another increase in the late afternoon, reflecting typical workday travel patterns. This analysis reveals that daily human activity and traffic density play a significant role in when accidents are most likely to occur."
+    "section": "",
+    "text": "Traffic accidents in the United States show distinct patterns based on the time of day. Using data from the US Accidents dataset, which includes detailed records of traffic incidents from 2016 to 2023, I analyzed 500,000 accident reports to explore temporal trends in accident frequency. The number of accidents rises sharply starting at 5 AM, peaks during the morning commute between 7 and 9 AM, and shows another increase in the late afternoon, reflecting typical workday travel patterns. This analysis reveals that daily human activity and traffic density play a significant role in when accidents are most likely to occur."
   }
 ]
