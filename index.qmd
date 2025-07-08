@@ -9,27 +9,45 @@ execute:
 ```{r}
 #| message: false
 #| results: hide
+# Load required libraries
+# I am using readr for efficient CSV reading, ggplot2 for plotting, and lubridate for easy date-time manipulation.
 library(readr)     
 library(ggplot2)    
 library(lubridate)  
 
+# Read in the accident data (limited to 500,000 rows for performance reasons)
+# I chose to use n_max = 500000 to prevent memory issues during initial exploration. This can be adjusted based on available system resources. I can also use vroom package to read this large dataset.
 accidents <- read_csv("data/US_Accidents.csv", n_max = 500000)
 ```
 
 
 ```{r}
-# Extract hour from Start_Time
+# Extract the hour from Start_Time and create a new column
+# I used lubridate's hour() function instead of base R because it's more readable and handles date-time objects gracefully.
 accidents$Hour <- hour(accidents$Start_Time)
 
-# Plot accidents by hour
+
+# Plot the number of accidents by hour of day
+# I opted for geom_bar to create a clear visual of accident frequency across each hour.
+# I considered using a line chart, but the bar plot better highlights discrete hourly patterns and peaks.
+# The color scheme (#2C77B9 with white borders) was selected for good contrast and readability on light backgrounds.
+# The theme_minimal is used to keep the focus on the data without unnecessary visual clutter.
+# For this initial exploration, I focused only on the hourly distribution of accidents.
+# If I revisit this, I would consider incorporating additional variables—such as State, Weather_Condition, or Station to conduct a more detailed analysis of how accidents vary by location, weather, or proximity to infrastructure.
+
 ggplot(accidents, aes(x = Hour)) +
   geom_bar(fill = "#2C77B9", color = "white") +
-  labs(title = "Number of Accidents by Hour of Day",
-       x = "Hour of Day",
-       y = "Number of Accidents") +
+  labs(
+    title = "Number of Accidents by Hour of Day",
+    subtitle = "Accidents peak during morning and evening commuting hours, reflecting 
+    typical weekday travel patterns",
+    caption = "Source: Kaggle (US Accidents, 2016–2023)", 
+    x = "Hour of Day",
+    y = "Number of Accidents"
+  ) +
   theme_minimal(base_size = 14)
 ```
 
-## Summary
 Traffic accidents in the United States show distinct patterns based on the time of day. Using data from the US Accidents dataset, which includes detailed records of traffic incidents from 2016 to 2023, I analyzed 500,000 accident reports to explore temporal trends in accident frequency. The number of accidents rises sharply starting at 5 AM, peaks during the morning commute between 7 and 9 AM, and shows another increase in the late afternoon, reflecting typical workday travel patterns. This analysis reveals that daily human activity and traffic density play a significant role in when accidents are most likely to occur.
+
 
