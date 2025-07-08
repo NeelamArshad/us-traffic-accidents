@@ -2,7 +2,7 @@
 title: "About"
 ---
 
-I am a data science enthusiast with a strong interest in data visualization and real-world applications of AI. You can find more of my work on my [Github Account](https://github.com/NeelamArshad) or reach me at aneelam888@gmail.com. 
+I am a data science enthusiast with a strong interest in data visualization and real-world applications of AI. You can find more of my work on my [Github Account](https://github.com/NeelamArshad) or reach me at (aneelam888@gmail.com). 
 
 This project, which focuses on analyzing US traffic accidents to uncover patterns and insights using real-world data, is available on [GitHub](https://github.com/NeelamArshad/us-traffic-accidents).
 
