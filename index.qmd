@@ -15,6 +15,7 @@ library(readr)
 library(ggplot2)    
 library(lubridate)  
 
+# download_data
 # Read in the accident data (limited to 500,000 rows for performance reasons)
 # I chose to use n_max = 500000 to prevent memory issues during initial exploration. This can be adjusted based on available system resources. I can also use vroom package to read this large dataset.
 accidents <- read_csv("data/US_Accidents.csv", n_max = 500000)
@@ -22,6 +23,7 @@ accidents <- read_csv("data/US_Accidents.csv", n_max = 500000)
 
 
 ```{r}
+# Extracting the required column and constructing bar graph
 # Extract the hour from Start_Time and create a new column
 # I used lubridate's hour() function instead of base R because it's more readable and handles date-time objects gracefully.
 accidents$Hour <- hour(accidents$Start_Time)
