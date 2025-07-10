@@ -1,6 +1,6 @@
 # us-traffic-accidents
 
-[Quarto Website] (https://neelamarshad.github.io/us-traffic-accidents/)
+[Quarto Website](https://neelamarshad.quarto.pub/us-traffic-accidents-analysis/)
 
 ## Project Overview
 
