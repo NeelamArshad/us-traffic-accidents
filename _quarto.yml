@@ -9,6 +9,8 @@ website:
         text: Home
       - href: sources.qmd
         text: sources
+      - href: model.qmd
+        text: model
       - about.qmd
 
 format:
