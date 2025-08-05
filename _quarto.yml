@@ -9,9 +9,9 @@ website:
         text: Home
       - href: sources.qmd
         text: sources
+      - about.qmd
       - href: model.qmd
         text: model
-      - about.qmd
 
 format:
   html:

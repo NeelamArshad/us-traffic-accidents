@@ -18,38 +18,82 @@ library(lubridate)
 # download_data
 # Read in the accident data (limited to 500,000 rows for performance reasons)
 # I chose to use n_max = 500000 to prevent memory issues during initial exploration. This can be adjusted based on available system resources. I can also use vroom package to read this large dataset.
-accidents <- read_csv("data/US_Accidents.csv", n_max = 500000)
+us_accidents <- read_csv("data/US_Accidents.csv", n_max = 100000)
 ```
-
 
 ```{r}
-# Extracting the required column and constructing bar graph
-# Extract the hour from Start_Time and create a new column
-# I used lubridate's hour() function instead of base R because it's more readable and handles date-time objects gracefully.
-accidents$Hour <- hour(accidents$Start_Time)
-
-
-# Plot the number of accidents by hour of day
-# I opted for geom_bar to create a clear visual of accident frequency across each hour.
-# I considered using a line chart, but the bar plot better highlights discrete hourly patterns and peaks.
-# The color scheme (#2C77B9 with white borders) was selected for good contrast and readability on light backgrounds.
-# The theme_minimal is used to keep the focus on the data without unnecessary visual clutter.
-# For this initial exploration, I focused only on the hourly distribution of accidents.
-# If I revisit this, I would consider incorporating additional variables—such as State, Weather_Condition, or Station to conduct a more detailed analysis of how accidents vary by location, weather, or proximity to infrastructure.
-
-ggplot(accidents, aes(x = Hour)) +
-  geom_bar(fill = "#2C77B9", color = "white") +
-  labs(
-    title = "Number of Accidents by Hour of Day",
-    subtitle = "Accidents peak during morning and evening commuting hours, reflecting 
-    typical weekday travel patterns",
-    caption = "Source: Kaggle (US Accidents, 2016–2023)", 
-    x = "Hour of Day",
-    y = "Number of Accidents"
-  ) +
-  theme_minimal(base_size = 14)
+us_accidents_small <- us_accidents[1:100000, c("Severity", "Start_Time", "Distance(mi)", "Weather_Condition")]
 ```
 
-Traffic accidents in the United States show distinct patterns based on the time of day. Using data from the US Accidents dataset, which includes detailed records of traffic incidents from 2016 to 2023, I analyzed 500,000 accident reports to explore temporal trends in accident frequency. The number of accidents rises sharply starting at 5 AM, peaks during the morning commute between 7 and 9 AM, and shows another increase in the late afternoon, reflecting typical workday travel patterns. This analysis reveals that daily human activity and traffic density play a significant role in when accidents are most likely to occur. I modeled the severity of a traffic accident and fit a linear regression model using 2 million observations. The predictors included the time of day the accident began, the distance covered by the accident, and the weather conditions at the time of the incident. Accidents that occurred under certain weather conditions, such as snow or rain, tended to be slightly more severe. Similarly, accidents that spanned longer distances were also associated with slightly higher severity.
+```{r}
+#| message: false
+#| warning: false
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+library(patchwork)
 
+# Subset 100,000 rows for visualization
+set.seed(123)
+us_sample <- us_accidents_small %>% sample_n(100000) %>%
+  mutate(Hour = hour(Start_Time))
 
+# Plot 1: Distance vs Severity
+p1 <- ggplot(us_sample, aes(x = `Distance(mi)`, y = Severity)) +
+  geom_point(alpha = 0.03, color = "blue") +
+  geom_smooth(method = "loess", se = FALSE, color = "darkblue") +
+  scale_x_continuous(limits = c(0, 20)) +
+  labs(
+    title = "Severity vs Distance",
+    subtitle = "Longer-distance accidents 
+    tend to have slightly 
+    higher severity",
+    x = "Distance (miles)", y = "Severity"
+  ) +
+  theme_minimal(base_size = 11)
+
+# Plot 2: Number of Accidents by Hour of Day
+p2 <- us_sample %>%
+  count(Hour) %>%
+  ggplot(aes(x = factor(Hour), y = n)) +
+  geom_col(fill = "orange") +
+  labs(
+    title = "Number of Accidents by Hour of Day",
+    subtitle = "Accidents peak during morning and 
+    evening rush hours",
+    x = "Hour of Day", y = "Accident Count"
+  ) +
+  theme_minimal(base_size = 11)
+
+# Plot 3: Severity by Weather Condition (Top 10)
+top_weather <- us_sample %>%
+  count(Weather_Condition, sort = TRUE) %>%
+  slice_max(n, n = 10) %>%
+  pull(Weather_Condition)
+
+p3 <- us_sample %>%
+  filter(Weather_Condition %in% top_weather) %>%
+  mutate(Weather_Condition = factor(Weather_Condition)) %>%
+  ggplot(aes(x = reorder(Weather_Condition, Severity, median), y = Severity)) +
+  geom_boxplot(fill = "seagreen", outlier.alpha = 0.05) +
+  coord_flip() +
+  labs(
+    title = "Severity by Weather Condition (Top 10)",
+    subtitle = "Snow, rain, and fog conditions show higher median severity",
+    x = "Weather", y = "Severity"
+  ) +
+  theme_minimal(base_size = 11)
+
+# Combine plots with overall title
+combined_plot <- (p1 | p2) / p3 +
+  plot_annotation(
+    title = "Accident Severity and Temporal/Environmental Patterns",
+    theme = theme(plot.title = element_text(size = 14, face = "bold"))
+  )
+
+# Show plot
+combined_plot
+```
+
+Traffic accidents in the United States show distinct patterns based on the time of day. Using data from the US Accidents dataset, which includes detailed records of traffic incidents from 2016 to 2023, I analyzed a sample of 100,000 accident reports to explore temporal and environmental trends in accident frequency and severity. The number of accidents rises sharply starting at 5 AM, peaks during the morning commute between 7 and 9 AM, and shows another increase in the late afternoon, reflecting typical workday travel patterns. This analysis reveals that daily human activity and traffic density play a significant role in when accidents are most likely to occur. I also modeled the severity of traffic accidents using a linear regression model fit on 2 million records. Key predictors included the time of day the accident began, the distance covered by the accident, and the weather conditions at the time of the incident. Accidents that occurred in adverse weather conditions, such as snow, rain, or fog, tended to be slightly more severe. Likewise, accidents that spanned longer distances were also associated with modest increases in severity. This model and its findings may be valuable for transportation planners, policymakers, and researchers aiming to understand the impact of environmental and situational factors on accident severity and improve road safety strategies.

@@ -27,42 +27,49 @@ library(tidyverse)
 library(tidymodels)
 library(lubridate)
 library(knitr)
-library(broom)
+library(broom)     
+library(gt)                
+library(broom)          
+library(marginaleffects) 
+library(easystats) 
 file_path2 <- file.path("C:", "Users", "Dell", "Downloads", "US_Accidents_March23.csv")
-us_accidents <- vroom(file_path2, n_max = 2000000)
+us_accidents2 <- vroom(file_path2, n_max = 2000000)
 ```
 
 ```{r}
-us_accidents_small <- us_accidents[1:2000000, c("Severity", "Start_Time", "Distance(mi)", "Weather_Condition")]
+us_accidents_small2 <- us_accidents2[1:2000000, c("Severity", "Start_Time", "Distance(mi)", "Weather_Condition")]
 ```
 
 ```{r}
+#| message: false
+#| results: hide
 linear_reg() |>
-  fit(Severity ~ Start_Time + `Distance(mi)` + Weather_Condition, data = us_accidents_small)
+  fit(Severity ~ Start_Time + `Distance(mi)` + Weather_Condition, data = us_accidents_small2)
 ```
 
 ## Data Generating Mechanism
 The fitted equation, simplified to highlight key relationships, is:
 
 $$
-\begin{aligned}
-\widehat{\text{Severity}} =\; & 3.493 \\
-& - 7.003 \times 10^{-10} \cdot \text{Start\_Time} \\
-& + 0.04147 \cdot \text{Distance(mi)} \\
-& - 0.1003 \cdot \text{Clear} \\
-& - 0.1780 \cdot \text{Fog} \\
-& + 0.038 \cdot \text{Heavy Snow} \\
-& + 0.0223 \cdot \text{Freezing Rain} \\
-& + 0.0545 \cdot \text{Hail} \\
-& - 1.334 \cdot \text{Tornado} \\
-& + 0.1148 \cdot \text{Rain and Sleet} \\
-& + 0.03048 \cdot \text{Heavy Rain} \\
-& + \cdots
-\end{aligned}
+\widehat{\text{Severity}} = 3.493 
+- 7.003 \times 10^{-10} \cdot \text{Start_Time} 
++ 0.0415 \cdot \text{Distance (mi)} 
+- 0.1003 \cdot \text{Weather_ConditionClear} 
+- 0.1780 \cdot \text{Weather_ConditionFog} 
++ 0.0118 \cdot \text{Weather_ConditionLight Snow } 
++ 0.0305 \cdot \text{Weather_ConditionHeavy Rain}
 $$
 
 The model includes over 100 levels of `Weather_Condition`, represented as dummy variables. Only a subset is shown here.
 
+```{r}
+#| message: false
+#| results: hide
+fit_cs <- linear_reg() |>
+  fit(Severity ~ Start_Time + `Distance(mi)` + Weather_Condition, data = us_accidents_small2)
+
+plot_predictions(fit_cs, by = c("Severity", "Start_Time", "Distance(mi)", "Weather_Condition"), draw = FALSE)
+```
 
 ### Estimated Model Coefficients
 
@@ -88,7 +95,5 @@ The model includes over 100 levels of `Weather_Condition`, represented as dummy 
 This model suggests that:
 
 Accidents covering longer distances are associated with slightly higher severity.
-Accidents occurring during snow or heavy rain conditions tend to be more severe than those during clear weather.
-Start_Time has a very small, but technically nonzero, effect on severity.
-
+Accidents occurring during snow or heavy rain conditions tend to be more severe than those during clear weather. Start_Time has a very small, but technically nonzero, effect on severity.
 Weather conditions such as "Clear" and "Overcast" are associated with lower severity, while conditions like "Snow" and "Heavy Rain" are linked to increased severity, relative to the reference weather category.
