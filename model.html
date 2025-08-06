@@ -127,12 +127,12 @@ window.Quarto = {
 <span class="menu-text">sources</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./model.html" aria-current="page"> 
-<span class="menu-text">model</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./model.html" aria-current="page"> 
+<span class="menu-text">model</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -152,7 +152,7 @@ window.Quarto = {
   <ul>
   <li><a href="#data-generating-mechanism" id="toc-data-generating-mechanism" class="nav-link active" data-scroll-target="#data-generating-mechanism">Data Generating Mechanism</a>
   <ul class="collapse">
-  <li><a href="#estimated-model-coefficients" id="toc-estimated-model-coefficients" class="nav-link" data-scroll-target="#estimated-model-coefficients">Estimated Model Coefficients</a></li>
+  <li><a href="#table-estimated-regression-coefficients-with-confidence-intervals-and-statistical-significance" id="toc-table-estimated-regression-coefficients-with-confidence-intervals-and-statistical-significance" class="nav-link" data-scroll-target="#table-estimated-regression-coefficients-with-confidence-intervals-and-statistical-significance">Table: Estimated Regression Coefficients with Confidence Intervals and Statistical Significance</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -184,352 +184,109 @@ window.Quarto = {
 <p>Start Time: The time of day when the accident began</p>
 <p>Distance: The distance the accident covered, in miles</p>
 <p>Weather Condition: The reported weather at the time of the accident</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>parsnip model object
-
-
-Call:
-stats::lm(formula = Severity ~ Start_Time + `Distance(mi)` + 
-    Weather_Condition, data = data)
-
-Coefficients:
-                                    (Intercept)  
-                                      3.493e+00  
-                                     Start_Time  
-                                     -7.003e-10  
-                                 `Distance(mi)`  
-                                      4.147e-02  
-          Weather_ConditionBlowing Dust / Windy  
-                                     -1.303e-01  
-                  Weather_ConditionBlowing Sand  
-                                      5.362e-01  
-                  Weather_ConditionBlowing Snow  
-                                      1.291e-01  
-          Weather_ConditionBlowing Snow / Windy  
-                                     -5.413e-03  
-                         Weather_ConditionClear  
-                                     -1.003e-01  
-                        Weather_ConditionCloudy  
-                                     -7.835e-02  
-                Weather_ConditionCloudy / Windy  
-                                     -1.818e-02  
-                       Weather_ConditionDrizzle  
-                                      2.991e-03  
-               Weather_ConditionDrizzle / Windy  
-                                      5.322e-02  
-               Weather_ConditionDrizzle and Fog  
-                                     -7.661e-02  
-                     Weather_ConditionDuststorm  
-                                      6.416e-01  
-                          Weather_ConditionFair  
-                                     -1.074e-01  
-                  Weather_ConditionFair / Windy  
-                                     -3.778e-02  
-                           Weather_ConditionFog  
-                                     -1.780e-01  
-                   Weather_ConditionFog / Windy  
-                                      1.975e-03  
-              Weather_ConditionFreezing Drizzle  
-                                      1.843e-01  
-                 Weather_ConditionFreezing Rain  
-                                      2.230e-01  
-         Weather_ConditionFreezing Rain / Windy  
-                                     -3.635e-01  
-                  Weather_ConditionFunnel Cloud  
-                                     -4.219e-02  
-                          Weather_ConditionHail  
-                                      5.447e-01  
-                          Weather_ConditionHaze  
-                                     -3.841e-02  
-                  Weather_ConditionHaze / Windy  
-                                     -1.061e-02  
-                 Weather_ConditionHeavy Drizzle  
-                                     -9.661e-02  
-           Weather_ConditionHeavy Freezing Rain  
-                                     -3.745e-01  
-   Weather_ConditionHeavy Freezing Rain / Windy  
-                                      6.385e-01  
-             Weather_ConditionHeavy Ice Pellets  
-                                      5.495e-01  
-                    Weather_ConditionHeavy Rain  
-                                      3.048e-02  
-            Weather_ConditionHeavy Rain / Windy  
-                                      1.472e-01  
-            Weather_ConditionHeavy Rain Showers  
-                                      5.565e-01  
-                   Weather_ConditionHeavy Sleet  
-                                      3.913e-01  
-                    Weather_ConditionHeavy Snow  
-                                      1.042e-01  
-            Weather_ConditionHeavy Snow / Windy  
-                                      1.820e-01  
-                 Weather_ConditionHeavy T-Storm  
-                                      3.781e-02  
-         Weather_ConditionHeavy T-Storm / Windy  
-                                      2.162e-02  
-  Weather_ConditionHeavy Thunderstorms and Rain  
-                                     -1.229e-02  
-  Weather_ConditionHeavy Thunderstorms and Snow  
-                                      5.475e-01  
-                   Weather_ConditionIce Pellets  
-                                      1.116e-02  
-                 Weather_ConditionLight Drizzle  
-                                     -4.952e-02  
-         Weather_ConditionLight Drizzle / Windy  
-                                     -6.370e-03  
-                     Weather_ConditionLight Fog  
-                                      5.450e-01  
-        Weather_ConditionLight Freezing Drizzle  
-                                     -1.696e-02  
-            Weather_ConditionLight Freezing Fog  
-                                      6.775e-02  
-           Weather_ConditionLight Freezing Rain  
-                                      7.462e-02  
-   Weather_ConditionLight Freezing Rain / Windy  
-                                      2.689e-02  
-                    Weather_ConditionLight Haze  
-                                     -4.547e-01  
-             Weather_ConditionLight Ice Pellets  
-                                      2.007e-01  
-                    Weather_ConditionLight Rain  
-                                     -1.915e-02  
-            Weather_ConditionLight Rain / Windy  
-                                      1.920e-02  
-             Weather_ConditionLight Rain Shower  
-                                      1.916e-02  
-     Weather_ConditionLight Rain Shower / Windy  
-                                     -3.788e-01  
-            Weather_ConditionLight Rain Showers  
-                                     -1.849e-01  
-       Weather_ConditionLight Rain with Thunder  
-                                      5.239e-02  
-                   Weather_ConditionLight Sleet  
-                                      7.958e-02  
-           Weather_ConditionLight Sleet / Windy  
-                                      6.455e-01  
-                    Weather_ConditionLight Snow  
-                                      1.180e-02  
-            Weather_ConditionLight Snow / Windy  
-                                     -2.296e-02  
-          Weather_ConditionLight Snow and Sleet  
-                                      1.059e-01  
-  Weather_ConditionLight Snow and Sleet / Windy  
-                                      1.817e-01  
-             Weather_ConditionLight Snow Grains  
-                                     -3.891e-01  
-             Weather_ConditionLight Snow Shower  
-                                     -1.866e-01  
-     Weather_ConditionLight Snow Shower / Windy  
-                                     -3.650e-01  
-       Weather_ConditionLight Snow with Thunder  
-                                     -1.464e-01  
-  Weather_ConditionLight Thunderstorms and Rain  
-                                     -4.417e-02  
-  Weather_ConditionLight Thunderstorms and Snow  
-                                      5.121e-01  
-             Weather_ConditionLow Drifting Snow  
-                                      5.444e-01  
-                          Weather_ConditionMist  
-                                     -1.282e-01  
-                  Weather_ConditionMist / Windy  
-                                     -3.547e-01  
-                 Weather_ConditionMostly Cloudy  
-                                     -6.028e-02  
-         Weather_ConditionMostly Cloudy / Windy  
-                                      2.429e-02  
-             Weather_ConditionN/A Precipitation  
-                                     -1.395e-02  
-                      Weather_ConditionOvercast  
-                                     -1.039e-01  
-                   Weather_ConditionPartial Fog  
-                                     -3.059e-01  
-           Weather_ConditionPartial Fog / Windy  
-                                      6.085e-01  
-                 Weather_ConditionPartly Cloudy  
-                                     -6.598e-02  
-         Weather_ConditionPartly Cloudy / Windy  
-                                      1.226e-03  
-                Weather_ConditionPatches of Fog  
-                                     -1.738e-01  
-        Weather_ConditionPatches of Fog / Windy  
-                                     -3.791e-01  
-                          Weather_ConditionRain  
-                                      2.344e-02  
-                  Weather_ConditionRain / Windy  
-                                      6.102e-02  
-                Weather_ConditionRain and Sleet  
-                                      1.148e-01  
-                   Weather_ConditionRain Shower  
-                                      1.012e-01  
-                  Weather_ConditionRain Showers  
-                                     -7.065e-02  
-                          Weather_ConditionSand  
-                                      3.945e-02  
-     Weather_ConditionSand / Dust Whirls Nearby  
-                                     -3.593e-01  
-        Weather_ConditionSand / Dust Whirlwinds  
-                                     -3.398e-01  
-Weather_ConditionSand / Dust Whirlwinds / Windy  
-                                     -3.987e-01  
-              Weather_ConditionScattered Clouds  
-                                     -6.944e-02  
-                   Weather_ConditionShallow Fog  
-                                     -1.426e-01  
-       Weather_ConditionShowers in the Vicinity  
-                                      1.181e-02  
-                         Weather_ConditionSleet  
-                                      1.143e-01  
-                 Weather_ConditionSleet / Windy  
-                                      6.564e-01  
-                    Weather_ConditionSmall Hail  
-                                      2.440e-01  
-                         Weather_ConditionSmoke  
-                                     -9.310e-02  
-                 Weather_ConditionSmoke / Windy  
-                                     -6.607e-02  
-                          Weather_ConditionSnow  
-                                      3.783e-02  
-                  Weather_ConditionSnow / Windy  
-                                      1.741e-01  
-                Weather_ConditionSnow and Sleet  
-                                      3.191e-01  
-        Weather_ConditionSnow and Sleet / Windy  
-                                      3.089e-01  
-              Weather_ConditionSnow and Thunder  
-                                     -3.374e-01  
-      Weather_ConditionSnow and Thunder / Windy  
-                                      6.550e-01  
-                   Weather_ConditionSnow Grains  
-                                     -4.545e-01  
-                  Weather_ConditionSnow Showers  
-                                      5.470e-01  
-                       Weather_ConditionSqualls  
-                                     -1.213e-02  
-               Weather_ConditionSqualls / Windy  
-                                      2.171e-01  
-                       Weather_ConditionT-Storm  
-                                      4.198e-02  
-               Weather_ConditionT-Storm / Windy  
-                                      5.939e-02  
-                       Weather_ConditionThunder  
-                                      1.654e-02  
-               Weather_ConditionThunder / Windy  
-                                      1.165e-01  
-          Weather_ConditionThunder / Wintry Mix  
-                                     -8.846e-02  
-  Weather_ConditionThunder / Wintry Mix / Windy  
-                                     -3.701e-01  
-              Weather_ConditionThunder and Hail  
-                                     -3.619e-01  
-       Weather_ConditionThunder in the Vicinity  
-                                     -1.466e-02  
-                  Weather_ConditionThunderstorm  
-                                     -8.420e-02  
-        Weather_ConditionThunderstorms and Rain  
-                                     -3.881e-03  
-                       Weather_ConditionTornado  
-                                     -1.334e+00  
-                  Weather_ConditionVolcanic Ash  
-                                     -3.298e-01  
-               Weather_ConditionWidespread Dust  
-                                      2.777e-02  
-       Weather_ConditionWidespread Dust / Windy  
-                                      4.429e-02  
-                    Weather_ConditionWintry Mix  
-                                     -6.958e-03  
-            Weather_ConditionWintry Mix / Windy  
-                                      1.801e-01  </code></pre>
-</div>
-</div>
 <section id="data-generating-mechanism" class="level2">
 <h2 class="anchored" data-anchor-id="data-generating-mechanism">Data Generating Mechanism</h2>
 <p>The fitted equation, simplified to highlight key relationships, is:</p>
 <p><span class="math display">\[
-\begin{aligned}
-\widehat{\text{Severity}} =\; &amp; 3.493 \\
-&amp; - 7.003 \times 10^{-10} \cdot \text{Start\_Time} \\
-&amp; + 0.04147 \cdot \text{Distance(mi)} \\
-&amp; - 0.1003 \cdot \text{Clear} \\
-&amp; - 0.1780 \cdot \text{Fog} \\
-&amp; + 0.038 \cdot \text{Heavy Snow} \\
-&amp; + 0.0223 \cdot \text{Freezing Rain} \\
-&amp; + 0.0545 \cdot \text{Hail} \\
-&amp; - 1.334 \cdot \text{Tornado} \\
-&amp; + 0.1148 \cdot \text{Rain and Sleet} \\
-&amp; + 0.03048 \cdot \text{Heavy Rain} \\
-&amp; + \cdots
-\end{aligned}
+\widehat{\text{Severity}} = 3.493
+- 7.003 \times 10^{-10} \cdot \text{Start\_Time}
++ 0.0415 \cdot \text{Distance (mi)}
+- 0.1003 \cdot \text{Weather\_ConditionClear}
+- 0.1780 \cdot \text{Weather\_ConditionFog}
++ 0.0118 \cdot \text{Weather\_ConditionLight\ Snow}
++ 0.0305 \cdot \text{Weather\_ConditionHeavy\ Rain}
 \]</span></p>
 <p>The model includes over 100 levels of <code>Weather_Condition</code>, represented as dummy variables. Only a subset is shown here.</p>
-<section id="estimated-model-coefficients" class="level3">
-<h3 class="anchored" data-anchor-id="estimated-model-coefficients">Estimated Model Coefficients</h3>
+<section id="table-estimated-regression-coefficients-with-confidence-intervals-and-statistical-significance" class="level3">
+<h3 class="anchored" data-anchor-id="table-estimated-regression-coefficients-with-confidence-intervals-and-statistical-significance">Table: Estimated Regression Coefficients with Confidence Intervals and Statistical Significance</h3>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 12%">
+<col style="width: 14%">
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 14%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Variable</th>
 <th>Estimate</th>
+<th>Std. Error</th>
+<th>p-value</th>
+<th>Conf. Low</th>
+<th>Conf. High</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Intercept</td>
+<td>(Intercept)</td>
 <td>3.493</td>
+<td>0.024</td>
+<td>&lt;0.001</td>
+<td>3.446</td>
+<td>3.540</td>
 </tr>
 <tr class="even">
 <td>Start_Time</td>
 <td>-7.0e-10</td>
+<td>1.63e-10</td>
+<td>&lt;0.001</td>
+<td>-1.03e-09</td>
+<td>-3.73e-10</td>
 </tr>
 <tr class="odd">
-<td>Distance (mi)</td>
+<td>Distance(mi)</td>
 <td>0.0415</td>
+<td>0.003</td>
+<td>&lt;0.001</td>
+<td>0.035</td>
+<td>0.048</td>
 </tr>
 <tr class="even">
-<td>Weather: Rain</td>
-<td>0.023</td>
-</tr>
-<tr class="odd">
-<td>Weather: Snow</td>
-<td>0.038</td>
-</tr>
-<tr class="even">
-<td>Weather: Fog</td>
-<td>-0.178</td>
-</tr>
-<tr class="odd">
-<td>Weather: Clear</td>
+<td>Weather_ConditionClear</td>
 <td>-0.100</td>
-</tr>
-<tr class="even">
-<td>Weather: Haze</td>
-<td>-0.038</td>
+<td>0.010</td>
+<td>&lt;0.001</td>
+<td>-0.119</td>
+<td>-0.081</td>
 </tr>
 <tr class="odd">
-<td>Weather: Mist</td>
-<td>-0.128</td>
+<td>Weather_ConditionFog</td>
+<td>-0.178</td>
+<td>0.033</td>
+<td>&lt;0.001</td>
+<td>-0.242</td>
+<td>-0.114</td>
 </tr>
 <tr class="even">
-<td>Weather: Light Snow</td>
+<td>Weather_ConditionLight Snow</td>
 <td>0.012</td>
+<td>0.018</td>
+<td>0.503</td>
+<td>-0.023</td>
+<td>0.046</td>
 </tr>
 <tr class="odd">
-<td>Weather: Thunderstorm</td>
-<td>-0.084</td>
-</tr>
-<tr class="even">
-<td>Weather: Tornado</td>
-<td>-1.334</td>
-</tr>
-<tr class="odd">
-<td>…</td>
-<td>…</td>
+<td>Weather_ConditionHeavy Rain</td>
+<td>0.030</td>
+<td>0.017</td>
+<td>0.075</td>
+<td>-0.003</td>
+<td>0.063</td>
 </tr>
 </tbody>
 </table>
 <p><em>Only selected variables shown; full model includes 100+ weather conditions as dummies.</em></p>
-<p>This model suggests that:</p>
-<p>Accidents covering longer distances are associated with slightly higher severity. Accidents occurring during snow or heavy rain conditions tend to be more severe than those during clear weather. Start_Time has a very small, but technically nonzero, effect on severity.</p>
-<p>Weather conditions such as “Clear” and “Overcast” are associated with lower severity, while conditions like “Snow” and “Heavy Rain” are linked to increased severity, relative to the reference weather category.</p>
+<p>This model suggests the following relationships between accident severity and key predictors:</p>
+<p>Distance (mi): Accidents that cover longer distances are associated with a notably higher severity, indicating that more extensive incidents tend to be more serious.</p>
+<p>Start_Time: The time of day has a very small negative effect on severity. While statistically significant, the magnitude is negligible, suggesting limited practical influence.</p>
+<p>Weather Conditions:</p>
+<p>Clear and Foggy conditions are associated with lower severity compared to the baseline category (possibly “Overcast” or another default in the model).</p>
+<p>Light Snow shows a slight increase in severity, though the effect is not statistically significant.</p>
+<p>Heavy Rain has a positive coefficient, indicating increased severity, but the effect is only marginally significant (p ≈ 0.075).</p>
+<p>Overall, the model indicates that certain weather conditions and distance covered play more meaningful roles in predicting accident severity, while the time of day has only a minor effect.</p>
+
 
 
 </section>
