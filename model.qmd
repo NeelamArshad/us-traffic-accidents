@@ -1,6 +1,8 @@
 ---
 title: "Model"
-format: html
+format:
+  html:
+    math: katex
 execute: 
   echo: false
   warning: false
@@ -52,48 +54,46 @@ The fitted equation, simplified to highlight key relationships, is:
 
 $$
 \widehat{\text{Severity}} = 3.493 
-- 7.003 \times 10^{-10} \cdot \text{Start_Time} 
+- 7.003 \times 10^{-10} \cdot \text{Start\_Time} 
 + 0.0415 \cdot \text{Distance (mi)} 
-- 0.1003 \cdot \text{Weather_ConditionClear} 
-- 0.1780 \cdot \text{Weather_ConditionFog} 
-+ 0.0118 \cdot \text{Weather_ConditionLight Snow } 
-+ 0.0305 \cdot \text{Weather_ConditionHeavy Rain}
+- 0.1003 \cdot \text{Weather\_ConditionClear} 
+- 0.1780 \cdot \text{Weather\_ConditionFog} 
++ 0.0118 \cdot \text{Weather\_ConditionLight\ Snow} 
++ 0.0305 \cdot \text{Weather\_ConditionHeavy\ Rain}
 $$
+
+
 
 The model includes over 100 levels of `Weather_Condition`, represented as dummy variables. Only a subset is shown here.
 
-```{r}
-#| message: false
-#| results: hide
-fit_cs <- linear_reg() |>
-  fit(Severity ~ Start_Time + `Distance(mi)` + Weather_Condition, data = us_accidents_small2)
 
-plot_predictions(fit_cs, by = c("Severity", "Start_Time", "Distance(mi)", "Weather_Condition"), draw = FALSE)
-```
-
-### Estimated Model Coefficients
-
-| Variable              | Estimate  |
-|-----------------------|-----------|
-| Intercept             | 3.493     |
-| Start_Time            | -7.0e-10  |
-| Distance (mi)         | 0.0415    |
-| Weather: Rain         | 0.023     |
-| Weather: Snow         | 0.038     |
-| Weather: Fog          | -0.178    |
-| Weather: Clear        | -0.100    |
-| Weather: Haze         | -0.038    |
-| Weather: Mist         | -0.128    |
-| Weather: Light Snow   | 0.012     |
-| Weather: Thunderstorm | -0.084    |
-| Weather: Tornado      | -1.334    |
-| ...                   | ...       |
+### Table: Estimated Regression Coefficients with Confidence Intervals and Statistical Significance
+| Variable                     | Estimate  | Std. Error | p-value | Conf. Low | Conf. High |
+|------------------------------|-----------|------------|---------|-----------|------------|
+| (Intercept)                  | 3.493     | 0.024      | <0.001  | 3.446     | 3.540      |
+| Start_Time                   | -7.0e-10  | 1.63e-10   | <0.001  | -1.03e-09 | -3.73e-10  |
+| Distance(mi)                | 0.0415    | 0.003      | <0.001  | 0.035     | 0.048      |
+| Weather_ConditionClear       | -0.100    | 0.010      | <0.001  | -0.119    | -0.081     |
+| Weather_ConditionFog         | -0.178    | 0.033      | <0.001  | -0.242    | -0.114     |
+| Weather_ConditionLight Snow  | 0.012     | 0.018      | 0.503   | -0.023    | 0.046      |
+| Weather_ConditionHeavy Rain  | 0.030     | 0.017      | 0.075   | -0.003    | 0.063      |
 
 *Only selected variables shown; full model includes 100+ weather conditions as dummies.*
 
 
-This model suggests that:
+This model suggests the following relationships between accident severity and key predictors:
 
-Accidents covering longer distances are associated with slightly higher severity.
-Accidents occurring during snow or heavy rain conditions tend to be more severe than those during clear weather. Start_Time has a very small, but technically nonzero, effect on severity.
-Weather conditions such as "Clear" and "Overcast" are associated with lower severity, while conditions like "Snow" and "Heavy Rain" are linked to increased severity, relative to the reference weather category.
+Distance (mi): Accidents that cover longer distances are associated with a notably higher severity, indicating that more extensive incidents tend to be more serious.
+
+Start_Time: The time of day has a very small negative effect on severity. While statistically significant, the magnitude is negligible, suggesting limited practical influence.
+
+Weather Conditions:
+
+Clear and Foggy conditions are associated with lower severity compared to the baseline category (possibly "Overcast" or another default in the model).
+
+Light Snow shows a slight increase in severity, though the effect is not statistically significant.
+
+Heavy Rain has a positive coefficient, indicating increased severity, but the effect is only marginally significant (p ≈ 0.075).
+
+Overall, the model indicates that certain weather conditions and distance covered play more meaningful roles in predicting accident severity, while the time of day has only a minor effect.
+
