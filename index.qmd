@@ -17,7 +17,7 @@ library(lubridate)
 
 # download_data
 # Read in the accident data (limited to 500,000 rows for performance reasons)
-# I chose to use n_max = 500000 to prevent memory issues during initial exploration. This can be adjusted based on available system resources. I can also use vroom package to read this large dataset.
+# I chose to use n_max = 100000 to prevent memory issues during initial exploration. This can be adjusted based on available system resources. I can also use vroom package to read this large dataset.
 us_accidents <- read_csv("data/US_Accidents.csv", n_max = 100000)
 ```
 
@@ -31,7 +31,6 @@ us_accidents_small <- us_accidents[1:100000, c("Severity", "Start_Time", "Distan
 # Load required libraries
 library(ggplot2)
 library(dplyr)
-library(lubridate)
 library(patchwork)
 
 # Subset 100,000 rows for visualization
@@ -95,5 +94,7 @@ combined_plot <- (p1 | p2) / p3 +
 # Show plot
 combined_plot
 ```
+
+
 
 Traffic accidents in the United States show distinct patterns based on the time of day. Using data from the US Accidents dataset, which includes detailed records of traffic incidents from 2016 to 2023, I analyzed a sample of 100,000 accident reports to explore temporal and environmental trends in accident frequency and severity. The number of accidents rises sharply starting at 5 AM, peaks during the morning commute between 7 and 9 AM, and shows another increase in the late afternoon, reflecting typical workday travel patterns. This analysis reveals that daily human activity and traffic density play a significant role in when accidents are most likely to occur. I also modeled the severity of traffic accidents using a linear regression model fit on 2 million records. Key predictors included the time of day the accident began, the distance covered by the accident, and the weather conditions at the time of the incident. Accidents that occurred in adverse weather conditions, such as snow, rain, or fog, tended to be slightly more severe. Likewise, accidents that spanned longer distances were also associated with modest increases in severity. This model and its findings may be valuable for transportation planners, policymakers, and researchers aiming to understand the impact of environmental and situational factors on accident severity and improve road safety strategies.
